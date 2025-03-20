@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Entity
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 public class Places {
     @Id
@@ -27,7 +27,7 @@ public class Places {
     private String room;
     @Column(length = 32)
     private String seat;
-    @OneToMany(mappedBy = "Placeid", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "places", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
     public Places() {
     }
