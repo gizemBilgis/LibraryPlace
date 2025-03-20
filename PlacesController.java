@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/Place")
+@RequestMapping("/place")
 public class PlacesController {
 
     private final  PlaceRepository placeRepository;
@@ -23,8 +23,8 @@ public class PlacesController {
         System.out.printf("Places: %s\n",places);
         return new ResponseEntity<>(places, HttpStatus.OK);
     }
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Places> getCarById(@PathVariable("id") Long id){
+    @GetMapping("/get/{placeid}")
+    public ResponseEntity<Places> getPlaceById(@PathVariable("placeid") Long id){
         Optional<Places> place = placeRepository.findById(id);
         if(place.isPresent()) {
             return new ResponseEntity<>(place.get(), HttpStatus.OK);
@@ -36,12 +36,22 @@ public class PlacesController {
         return new ResponseEntity<>(placeRepository.save(place), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Places> deleteCar(@PathVariable("id") Long id){
+    @DeleteMapping("/delete/{placeid}")
+    public ResponseEntity<Places> deletePlace(@PathVariable("placeid") Long id){
         Optional<Places> place = placeRepository.findById(id);
         if(place.isPresent()) {
             placeRepository.delete(place.get());
             return new ResponseEntity<>(place.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @PutMapping("/update/{placeid}")
+    public ResponseEntity<Places> updatePlace(@PathVariable("placeid") Long id, @RequestBody Places place){
+        Optional<Places> placeOptional = placeRepository.findById(id);
+        if(placeOptional.isPresent()) {
+            place.setId(id);
+            return new ResponseEntity<>(placeRepository.save(place), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
