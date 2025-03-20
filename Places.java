@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class Places {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Placeid;
+    private Long placeid;
     @Column(length = 32)
     private String building;
     @Column(length = 32)
@@ -37,8 +37,8 @@ public class Places {
         this.room = room;
         this.seat = seat;
     }
-    public Long getId() {return Placeid;}
-    public void setId(Long id) {this.Placeid = id;}
+    public Long getId() {return placeid;}
+    public void setId(Long id) {this.placeid = id;}
     public String getBuilding() {return building;}
     public void setBuilding(String building) {this.building = building;}
     public String getFloor() {return floor;}
